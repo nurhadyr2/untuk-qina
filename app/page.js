@@ -64,7 +64,6 @@ export default function Home() {
           <div className="letter-sheet right">
             <img src="/utuh.png" alt="Surat utuh bagian kanan" />
           </div>
-          <div className="tear-line" />
           <div className="particle-layer" ref={particlesRef} />
         </div>
         <div className="letter-label">Klik surat untuk membuka pesan</div>
