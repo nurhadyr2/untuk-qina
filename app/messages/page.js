@@ -1,10 +1,8 @@
  'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 export default function Messages() {
-  const audioRef = useRef(null);
-
   useEffect(() => {
     const starsContainer = document.getElementById('stars');
     const starCount = window.innerWidth < 768 ? 60 : 130;
@@ -40,69 +38,14 @@ export default function Messages() {
 
     window.addEventListener('scroll', handleScroll);
 
-    const playAudio = async () => {
-      if (!audioRef.current) return;
-      try {
-        audioRef.current.volume = 0.06;
-        await audioRef.current.play();
-        document.getElementById('sound-toggle')?.classList.add('on');
-        const icon = document.getElementById('sound-icon');
-        if (icon) icon.className = 'fa-solid fa-volume-high';
-      } catch (err) {
-        // still blocked on some browsers
-      }
-    };
-
-    const playAudioHandler = () => playAudio();
-
-    window.addEventListener('scroll', playAudioHandler, { passive: true, once: true });
-    window.addEventListener('pointerdown', playAudioHandler, { once: true });
-    window.addEventListener('touchstart', playAudioHandler, { passive: true, once: true });
-    window.addEventListener('click', playAudioHandler, { once: true });
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('scroll', playAudioHandler);
-      window.removeEventListener('pointerdown', playAudioHandler);
-      window.removeEventListener('touchstart', playAudioHandler);
-      window.removeEventListener('click', playAudioHandler);
     };
-  }, []);
-
-  const toggleSound = async () => {
-    const btn = document.getElementById('sound-toggle');
-    const icon = document.getElementById('sound-icon');
-    if (!audioRef.current) return;
-    if (audioRef.current.paused) {
-      try {
-        await audioRef.current.play();
-        btn.classList.add('on');
-        if (icon) icon.className = 'fa-solid fa-volume-high';
-      } catch (e) {
-      }
-    } else {
-      audioRef.current.pause();
-      btn.classList.remove('on');
-      if (icon) icon.className = 'fa-solid fa-volume-xmark';
-    }
-  };
+  }, [router, searchParams]);
 
   return (
     <>
       <div id="stars"></div>
-
-      <audio
-        ref={audioRef}
-        id="bg-audio"
-        loop
-        playsInline
-        preload="auto"
-        src="/1x.mp3"
-      />
-
-      <div id="sound-toggle" onClick={toggleSound}>
-        <i className="fa-solid fa-volume-xmark" id="sound-icon"></i>
-      </div>
 
       <div id="guide">
         <i className="fa-solid fa-star"></i>

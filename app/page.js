@@ -45,7 +45,10 @@ export default function Home() {
   const handleOpen = () => {
     if (opening) return
     setOpening(true)
-    window.setTimeout(() => router.push('/messages'), 1150)
+    document.dispatchEvent(new CustomEvent('startMusic'))
+    window.setTimeout(() => {
+      router.push('/messages')
+    }, 1150)
   }
 
   return (
@@ -57,14 +60,12 @@ export default function Home() {
         aria-label="Buka surat untuk Qina"
       >
         <div className="letter-scene" aria-hidden="true">
-          <img src="/robek.png" className="letter-base" alt="Surat terbuka" />
           <div className="letter-sheet left">
             <img src="/utuh.png" alt="Surat utuh bagian kiri" />
           </div>
           <div className="letter-sheet right">
             <img src="/utuh.png" alt="Surat utuh bagian kanan" />
-          </div>
-          <div className="particle-layer" ref={particlesRef} />
+          </div>          <div className="particle-layer" ref={particlesRef} />
         </div>
         <div className="letter-label">Klik surat untuk membuka pesan</div>
       </button>

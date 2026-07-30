@@ -1,4 +1,5 @@
 import './globals.css';
+import AudioPlayer from './components/AudioPlayer';
 
 export const metadata = {
   title: 'Untuk Qina',
@@ -19,7 +20,10 @@ export default function RootLayout({ children }) {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <AudioPlayer />
+        {children}
+      </body>
     </html>
   );
 }
